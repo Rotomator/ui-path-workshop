@@ -61,7 +61,6 @@
   </TextExpression.ReferencesForImplementation>
   <Flowchart DisplayName="Main" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
-      <Variable x:TypeArguments="x:Boolean" Name="NewTransaction" />
       <Variable x:TypeArguments="sd:DataTable" Name="dataTable" />
       <Variable x:TypeArguments="sd:DataTable" Name="filteredData" />
     </Flowchart.Variables>
@@ -82,7 +81,7 @@
                       </InArgument>
                     </ui:ExcelReadRange.Range>
                   </ui:ExcelReadRange>
-                  <ui:BuildDataTable DataTable="[filteredData]" DisplayName="Build data table" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;username&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ranking&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;email&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+                  <ui:BuildDataTable DataTable="[filteredData]" DisplayName="Build data table" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;nickname&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ranking&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;email&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
                 </Sequence>
                 <ui:ForEachRow DataTable="[dataTable]" DisplayName="For each row" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
                   <ui:ForEachRow.Body>
@@ -92,13 +91,13 @@
                       </ActivityAction.Argument>
                       <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_8">
                         <Sequence.Variables>
-                          <Variable x:TypeArguments="ui:GenericValue" Name="rowItem" />
                           <Variable x:TypeArguments="ui:GenericValue" Name="ranking" />
                           <Variable x:TypeArguments="ui:GenericValue" Name="email" />
+                          <Variable x:TypeArguments="ui:GenericValue" Name="nickname" />
                         </Sequence.Variables>
-                        <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="username" DisplayName="Get row item" sap2010:WorkflowViewState.IdRef="GetRowItem_1" Row="[row]">
+                        <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="nickname" DisplayName="Get row item" sap2010:WorkflowViewState.IdRef="GetRowItem_1" Row="[row]">
                           <ui:GetRowItem.Value>
-                            <OutArgument x:TypeArguments="ui:GenericValue">[rowItem]</OutArgument>
+                            <OutArgument x:TypeArguments="ui:GenericValue">[nickname]</OutArgument>
                           </ui:GetRowItem.Value>
                         </ui:GetRowItem>
                         <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="ranking" DisplayName="Get row item" sap2010:WorkflowViewState.IdRef="GetRowItem_2" Row="[row]">
@@ -113,7 +112,7 @@
                         </ui:GetRowItem>
                         <If Condition="[ranking &gt;= 10]" sap2010:WorkflowViewState.IdRef="If_1">
                           <If.Then>
-                            <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{rowItem, email, ranking}]" DataTable="[filteredData]" DisplayName="Add data row" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                            <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{nickname, ranking, email}]" DataTable="[filteredData]" DisplayName="Add data row" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
                           </If.Then>
                         </If>
                       </Sequence>
@@ -144,7 +143,7 @@
     </Flowchart.StartNode>
     <x:Reference>__ReferenceID0</x:Reference>
     <x:Reference>__ReferenceID1</x:Reference>
-    <sads:DebugSymbol.Symbol>d0BDOlxVc2Vyc1xqb3NlLmNydXptXERvY3VtZW50c1xVaVBhdGhcRXhjZWwgRmlsdGVyIERhdGFcTWFpbi54YW1sJj4DlAEPAgEBRgl+JAIBCoEBDYwBKAIBAkakAUa1AQIBMUwPexoCAQuBAagBgQG2AQIBCYcBE4kBHgIBA00RVhwCAShXEXohAgEMiAEViAHLAQIBBE4TVCcCASxVE1XRCwIBKVcqVzcCASZdF3ciAgENiAHEAYgByAECAQiIAUWIAVUCAQaIAa4BiAG2AQIBBU5CTk8CAS9RGVFIAgEuTqYBTq4BAgEtVTBVQAIBKmMZZykCASBoGWwpAgEabRlxKQIBFHIZdh4CAQ5lTGVVAgEkY7UBY7wBAgEiY1xjZgIBIWpMalUCAR5otAFouwECARxoXGhlAgEbb0xvUwIBGG2yAW25AQIBFm1cbWMCARVyJ3I7AgEPdB10zQECARB0cHSAAQIBEnRIdGUCARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0BDOlxVc2Vyc1xqb3NlLmNydXptXERvY3VtZW50c1xVaVBhdGhcRXhjZWwgRmlsdGVyIERhdGFcTWFpbi54YW1sJj4DkwEPAgEBRQl9JAIBCoABDYsBKAIBAkWkAUW1AQIBMUsPehoCAQuAAagBgAG2AQIBCYYBE4gBHgIBA0wRVRwCAShWEXkhAgEMhwEVhwHLAQIBBE0TUycCASxUE1TRCwIBKVYqVjcCASZcF3YiAgENhwHEAYcByAECAQiHAUWHAVUCAQaHAa4BhwG2AQIBBU1CTU8CAS9QGVBIAgEuTaYBTa4BAgEtVDBUQAIBKmIZZikCASBnGWspAgEabBlwKQIBFHEZdR4CAQ5kTGRWAgEkYrUBYrwBAgEiYlxiZgIBIWlMaVUCAR5ntAFnuwECARxnXGdlAgEbbkxuUwIBGGyyAWy5AQIBFmxcbGMCARVxJ3E7AgEPcx1zzgECARBzcXOBAQIBEnNIc2YCARE=</sads:DebugSymbol.Symbol>
   </Flowchart>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -177,7 +176,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="200,51">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="552,1345">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -192,7 +191,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="414,320">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="200,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
